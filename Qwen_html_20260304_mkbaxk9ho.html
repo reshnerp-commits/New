@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Women's Luxe Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e8ed 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #1a3a4a;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            line-height: 1.3;
+        }
+
+        .carousel-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .watch-item {
+            flex: 0 0 auto;
+            width: 280px;
+            margin: 0 15px;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .watch-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .watch-image {
+            width: 100%;
+            height: 280px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+
+        .watch-model {
+            color: #1a3a4a;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .watch-brand {
+            color: #5a7a8a;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .watch-price {
+            color: #2c5f6f;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .watch-item {
+                width: 220px;
+                padding: 20px;
+            }
+            
+            .watch-image {
+                height: 220px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .watch-item {
+                width: 180px;
+                padding: 15px;
+                margin: 0 10px;
+            }
+            
+            .watch-image {
+                height: 180px;
+            }
+            
+            .watch-model {
+                font-size: 0.9rem;
+            }
+            
+            .watch-price {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>The Women's Luxe Collection</h1>
+    
+    <div class="carousel-wrapper">
+        <div class="carousel-track" id="track">
+            <!-- Original 5 watches -->
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Model W1" class="watch-image">
+                <div class="watch-model">Model W1 – Seren Bloom</div>
+                <div class="watch-brand">Seren Luxe</div>
+                <div class="watch-price">$3,800</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop" alt="Model W2" class="watch-image">
+                <div class="watch-model">Model W2 – Lumière Pearl</div>
+                <div class="watch-brand">Maison Lumière</div>
+                <div class="watch-price">$5,200</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=400&h=400&fit=crop" alt="Model W3" class="watch-image">
+                <div class="watch-model">Model W3 – Ardent Rose</div>
+                <div class="watch-brand">Ardent Milano</div>
+                <div class="watch-price">$3,600</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop" alt="Model W4" class="watch-image">
+                <div class="watch-model">Model W4 – Aureum Aurora</div>
+                <div class="watch-brand">Aureum Co.</div>
+                <div class="watch-price">$6,000</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=400&h=400&fit=crop" alt="Model W5" class="watch-image">
+                <div class="watch-model">Model W5 – Celestial Dawn</div>
+                <div class="watch-brand">Celestial Time</div>
+                <div class="watch-price">$4,800</div>
+            </div>
+            
+            <!-- Duplicate set for seamless loop -->
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Model W1" class="watch-image">
+                <div class="watch-model">Model W1 – Seren Bloom</div>
+                <div class="watch-brand">Seren Luxe</div>
+                <div class="watch-price">$3,800</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=400&h=400&fit=crop" alt="Model W2" class="watch-image">
+                <div class="watch-model">Model W2 – Lumière Pearl</div>
+                <div class="watch-brand">Maison Lumière</div>
+                <div class="watch-price">$5,200</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=400&h=400&fit=crop" alt="Model W3" class="watch-image">
+                <div class="watch-model">Model W3 – Ardent Rose</div>
+                <div class="watch-brand">Ardent Milano</div>
+                <div class="watch-price">$3,600</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=400&h=400&fit=crop" alt="Model W4" class="watch-image">
+                <div class="watch-model">Model W4 – Aureum Aurora</div>
+                <div class="watch-brand">Aureum Co.</div>
+                <div class="watch-price">$6,000</div>
+            </div>
+            
+            <div class="watch-item">
+                <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=400&h=400&fit=crop" alt="Model W5" class="watch-image">
+                <div class="watch-model">Model W5 – Celestial Dawn</div>
+                <div class="watch-brand">Celestial Time</div>
+                <div class="watch-price">$4,800</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
