@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App - Modern Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="app-wrapper">
+            <header class="header">
+                <h1>
+                    <span class="logo-icon">✓</span>
+                    Todo App
+                </h1>
+                <p class="subtitle">Stay organized, get things done</p>
+            </header>
+
+            <div class="input-section">
+                <form id="todo-form" class="todo-form">
+                    <input 
+                        type="text" 
+                        id="todo-input" 
+                        placeholder="What needs to be done?" 
+                        autocomplete="off"
+                        class="todo-input"
+                    >
+                    <button type="submit" class="add-btn">
+                        <span class="btn-icon">+</span>
+                        Add Task
+                    </button>
+                </form>
+            </div>
+
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+
+            <div class="stats-bar">
+                <span id="items-left">0 items left</span>
+                <button id="clear-completed" class="clear-btn">Clear Completed</button>
+            </div>
+
+            <ul id="todo-list" class="todo-list">
+                <!-- Todo items will be added here -->
+            </ul>
+
+            <div class="empty-state" id="empty-state">
+                <div class="empty-icon">📝</div>
+                <h3>No tasks yet</h3>
+                <p>Add a task above to get started!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
