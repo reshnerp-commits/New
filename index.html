@@ -3,60 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App - Modern Task Manager</title>
+    <title>Iron Conflict - RTS Game</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="app-wrapper">
-            <header class="header">
-                <h1>
-                    <span class="logo-icon">✓</span>
-                    Todo App
-                </h1>
-                <p class="subtitle">Stay organized, get things done</p>
-            </header>
-
-            <div class="input-section">
-                <form id="todo-form" class="todo-form">
-                    <input 
-                        type="text" 
-                        id="todo-input" 
-                        placeholder="What needs to be done?" 
-                        autocomplete="off"
-                        class="todo-input"
-                    >
-                    <button type="submit" class="add-btn">
-                        <span class="btn-icon">+</span>
-                        Add Task
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Top UI Bar -->
+        <div id="top-ui">
+            <div class="resource-display">
+                <span class="resource-icon">⚡</span>
+                <span id="metal-display">Metal: 0</span>
+                <span class="resource-separator">|</span>
+                <span class="resource-icon">🛢️</span>
+                <span id="oil-display">Oil: 0</span>
+            </div>
+            <div class="game-info">
+                <span id="population-display">Units: 0/50</span>
+                <span id="score-display">Score: 0</span>
+            </div>
+        </div>
+        
+        <!-- Bottom Control Panel -->
+        <div id="bottom-ui">
+            <div class="unit-selector" id="unit-selector">
+                <div class="selector-title">Build Units</div>
+                <div class="unit-buttons">
+                    <button class="unit-btn" data-unit="scout" title="Scout - Fast recon unit">
+                        <div class="unit-icon">🏃</div>
+                        <div class="unit-name">Scout</div>
+                        <div class="unit-cost">⚡50</div>
                     </button>
-                </form>
+                    <button class="unit-btn" data-unit="tank" title="Tank - Heavy assault">
+                        <div class="unit-icon">🚜</div>
+                        <div class="unit-name">Tank</div>
+                        <div class="unit-cost">⚡100 🛢️25</div>
+                    </button>
+                    <button class="unit-btn" data-unit="artillery" title="Artillery - Long range">
+                        <div class="unit-icon">🎯</div>
+                        <div class="unit-name">Artillery</div>
+                        <div class="unit-cost">⚡150 🛢️50</div>
+                    </button>
+                    <button class="unit-btn" data-unit="anti-air" title="Anti-Air - Defense">
+                        <div class="unit-icon">🔫</div>
+                        <div class="unit-name">AA Gun</div>
+                        <div class="unit-cost">⚡120 🛢️30</div>
+                    </button>
+                </div>
             </div>
-
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="active">Active</button>
-                <button class="filter-btn" data-filter="completed">Completed</button>
+            
+            <div class="building-selector" id="building-selector">
+                <div class="selector-title">Build Structures</div>
+                <div class="building-buttons">
+                    <button class="building-btn" data-building="factory" title="Factory - Produces units">
+                        <div class="building-icon">🏭</div>
+                        <div class="building-name">Factory</div>
+                        <div class="building-cost">⚡200 🛢️100</div>
+                    </button>
+                    <button class="building-btn" data-building="refinery" title="Refinery - Produces oil">
+                        <div class="building-icon">⛽</div>
+                        <div class="building-name">Refinery</div>
+                        <div class="building-cost">⚡150</div>
+                    </button>
+                    <button class="building-btn" data-building="turret" title="Turret - Defensive structure">
+                        <div class="building-icon">🗼</div>
+                        <div class="building-name">Turret</div>
+                        <div class="building-cost">⚡100 🛢️50</div>
+                    </button>
+                    <button class="building-btn" data-building="wall" title="Wall - Blocks enemies">
+                        <div class="building-icon">🧱</div>
+                        <div class="building-name">Wall</div>
+                        <div class="building-cost">⚡25</div>
+                    </button>
+                </div>
             </div>
-
-            <div class="stats-bar">
-                <span id="items-left">0 items left</span>
-                <button id="clear-completed" class="clear-btn">Clear Completed</button>
+            
+            <div class="action-panel">
+                <div class="action-buttons">
+                    <button id="attack-move-btn" class="action-btn" title="Attack Move">
+                        ⚔️ Attack Move
+                    </button>
+                    <button id="stop-btn" class="action-btn" title="Stop">
+                        🛑 Stop
+                    </button>
+                    <button id="repair-btn" class="action-btn" title="Repair">
+                        🔧 Repair
+                    </button>
+                </div>
+                <div class="minimap-container">
+                    <canvas id="minimap"></canvas>
+                </div>
             </div>
-
-            <ul id="todo-list" class="todo-list">
-                <!-- Todo items will be added here -->
-            </ul>
-
-            <div class="empty-state" id="empty-state">
-                <div class="empty-icon">📝</div>
-                <h3>No tasks yet</h3>
-                <p>Add a task above to get started!</p>
+        </div>
+        
+        <!-- Build Mode Overlay -->
+        <div id="build-overlay" class="hidden">
+            <div class="build-info">
+                <span id="build-name">Building...</span>
+                <span id="build-cost"></span>
+            </div>
+            <button id="cancel-build" class="cancel-btn">Cancel (ESC)</button>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="game-over" class="hidden">
+            <div class="game-over-content">
+                <h1 id="game-over-title">Game Over</h1>
+                <p id="game-over-message"></p>
+                <button id="restart-btn" class="restart-btn">Play Again</button>
+            </div>
+        </div>
+        
+        <!-- Start Screen -->
+        <div id="start-screen">
+            <div class="start-content">
+                <h1>⚔️ Iron Conflict</h1>
+                <p class="game-subtitle">A Real-Time Strategy Game</p>
+                <div class="instructions">
+                    <h3>How to Play:</h3>
+                    <ul>
+                        <li><strong>Select Units:</strong> Click or drag to select</li>
+                        <li><strong>Move/Attack:</strong> Right-click on destination</li>
+                        <li><strong>Build:</strong> Click build buttons, then click on map</li>
+                        <li><strong>Resources:</strong> Capture oil wells for bonus income</li>
+                        <li><strong>Victory:</strong> Destroy all enemy bases</li>
+                    </ul>
+                </div>
+                <button id="start-game-btn" class="start-btn">Start Battle</button>
             </div>
         </div>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
